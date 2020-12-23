@@ -1,0 +1,15 @@
+AppMode = "production" #Anything != production will show DEBUG messages
+
+[App]
+IP = ""
+Port = 5001
+Logfile = true
+Logdir = "/var/log/"
+
+[Database]
+IP = "127.0.0.1"
+Username = "sacrebleu"
+Password = "superSecretPassword"
+Port = "3306"
+Db = "sacrebleudatabase"
+Type = "mysql" #postgresql or mysql

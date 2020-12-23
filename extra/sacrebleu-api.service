@@ -1,0 +1,11 @@
+[Unit]
+Description=Sacrebleu API Server 
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/sacrebleu/
+ExecStart=/usr/bin/sacrebleu-api --config /etc/sacrebleu/config-api.ini
+
+[Install]
+WantedBy=multi-user.target
