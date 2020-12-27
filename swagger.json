@@ -1,0 +1,37 @@
+{
+  "swagger": "2.0",
+  "info": {},
+  "paths": {
+    "/ping": {
+      "get": {
+        "description": "If the API is up, it will pong.",
+        "summary": "Return pong to test the API.",
+        "operationId": "getPing",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/okResp"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "okResp": {
+      "description": "Success response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "Content": {
+            "type": "string",
+            "example": "Pong"
+          },
+          "HTTPCode": {
+            "type": "integer",
+            "format": "int64",
+            "example": 200
+          }
+        }
+      }
+    }
+  }
+}

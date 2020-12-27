@@ -1,0 +1,599 @@
+basePath: /api/
+definitions:
+  api.Response:
+    properties:
+      content:
+        example: Token invalid.
+        type: string
+      httpcode:
+        example: 403
+        type: integer
+    type: object
+  types.Domain:
+    properties:
+      description:
+        example: My example website
+        type: string
+      fqdn:
+        example: example.org.
+        type: string
+      id:
+        example: 1
+        type: integer
+      ownerID:
+        example: 2
+        type: integer
+      serial:
+        example: 1
+        type: integer
+    type: object
+  types.Record:
+    properties:
+      content:
+        example: 192.0.2.3
+        type: string
+      domainID:
+        example: 1
+        type: integer
+      fqdn:
+        example: sub.example.org.
+        type: string
+      id:
+        type: integer
+      qtype:
+        description: Not saved in the database
+        type: integer
+      ttl:
+        example: 3600
+        type: integer
+      type:
+        example: 1
+        type: integer
+    type: object
+  types.User:
+    properties:
+      domains:
+        description: Dont save this in the DB.
+        items:
+          $ref: '#/definitions/types.Domain'
+        type: array
+      email:
+        type: string
+      id:
+        type: integer
+      isAdmin:
+        type: boolean
+      password:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:5001
+info:
+  contact:
+    name: Project github
+    url: https://github.com/outout14/sacrebleu-api
+  description: This API allows you to manage a Sacrebleu DNS Database
+  license:
+    name: AGPL-3.0
+    url: https://raw.githubusercontent.com/outout14/sacrebleu-api/master/LICENCE
+  title: Sacrebleu DNS Server API
+  version: "0.1"
+paths:
+  /domain:
+    post:
+      consumes:
+      - application/json
+      description: Create a domain in the database
+      operationId: newdomain
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/types.Domain'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "409":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create domain
+      tags:
+      - Domains
+  /domain/{domain_id}:
+    delete:
+      description: Delete a domain in the database by his ID (not reversible.)
+      operationId: deldomain
+      parameters:
+      - description: "1"
+        in: path
+        name: domain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete domain
+      tags:
+      - Domains
+    get:
+      consumes:
+      - application/json
+      description: Get a domain in the database by his ID
+      operationId: domain
+      parameters:
+      - description: "1"
+        in: path
+        name: domain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Domain'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get domain informations
+      tags:
+      - Domains
+    put:
+      consumes:
+      - application/json
+      description: Update a existing domain in the database by his ID (not reversible.)
+      operationId: putdomain
+      parameters:
+      - description: "1"
+        in: path
+        name: domain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update domain
+      tags:
+      - Domains
+  /domain/{domain_id}/records:
+    get:
+      consumes:
+      - application/json
+      description: Get domain records in the database by the domain ID
+      operationId: domainrecord
+      parameters:
+      - description: "1"
+        in: path
+        name: domain_id
+        required: true
+        type: integer
+      - description: "10"
+        in: query
+        name: count
+        type: integer
+      - description: "1"
+        in: query
+        name: start
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.Record'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get domain records
+      tags:
+      - Domains
+      - Records
+  /domains:
+    get:
+      consumes:
+      - application/json
+      description: List of all domains accessibles (write & edit) according to the
+        user permissions
+      operationId: domains
+      parameters:
+      - description: "10"
+        in: query
+        name: count
+        type: integer
+      - description: "1"
+        in: query
+        name: start
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.Domain'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all domains accessibles by the user
+      tags:
+      - Domains
+  /record:
+    post:
+      consumes:
+      - application/json
+      description: Create a record in the database
+      operationId: newrecord
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/types.Record'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "409":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create record
+      tags:
+      - Records
+  /record/{record_id}:
+    delete:
+      description: Delete a record in the database by his ID (not reversible.)
+      operationId: delrecord
+      parameters:
+      - description: "1"
+        in: path
+        name: record_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete record
+      tags:
+      - Records
+    get:
+      consumes:
+      - application/json
+      description: Get a record in the database by his ID
+      operationId: record
+      parameters:
+      - description: "1"
+        in: path
+        name: record_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Record'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get record informations
+      tags:
+      - Records
+    put:
+      consumes:
+      - application/json
+      description: Update a existing record in the database by his ID (not reversible.)
+      operationId: putrecord
+      parameters:
+      - description: "1"
+        in: path
+        name: record_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update record
+      tags:
+      - Records
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create a user in the database
+      operationId: newuser
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "409":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create user
+      tags:
+      - Users
+  /user/{user_id}:
+    delete:
+      description: Delete a user in the database by his ID (not reversible.)
+      operationId: user
+      parameters:
+      - description: "1"
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      description: Get a user in the database by his ID
+      operationId: user
+      parameters:
+      - description: "1"
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user informations
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update a user in the database by his ID (not reversible.)
+      operationId: user
+      parameters:
+      - description: "1"
+        in: path
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update user informations
+      tags:
+      - Users
+  /user/self:
+    get:
+      description: Get the user object of who is running the query.
+      operationId: userself
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get logged user informations
+      tags:
+      - Users
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-access-token
+    type: apiKey
+swagger: "2.0"

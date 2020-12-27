@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 
+	"github.com/outout14/sacrebleu-dns/utils"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -12,7 +13,7 @@ import (
 
 //SQLDatabase Initialize the (My)SQL Database
 //Requires a conf struct
-func SQLDatabase(conf *Conf) *gorm.DB {
+func SQLDatabase(conf *utils.Conf) *gorm.DB {
 	logrus.WithFields(logrus.Fields{"database": conf.Database.Db, "driver": conf.Database.Type}).Infof("SQL : Connection to DB")
 	//Connect to the Database
 
@@ -31,7 +32,7 @@ func SQLDatabase(conf *Conf) *gorm.DB {
 		db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 			Logger: logger.Default.LogMode(gormLogLevel),
 		})
-		CheckErr(err)
+		utils.CheckErr(err)
 		return db
 
 	}
@@ -41,13 +42,7 @@ func SQLDatabase(conf *Conf) *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(gormLogLevel),
 	})
-	CheckErr(err)
+	utils.CheckErr(err)
 	return db
 
-}
-
-//SQLMigrate : Launch the database migration (creation of tables)
-func SQLMigrate(db *gorm.DB) {
-	logrus.Info("SQL : Database migration launched")
-	db.AutoMigrate(&Record{})
 }
