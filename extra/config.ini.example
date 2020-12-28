@@ -1,4 +1,4 @@
-AppMode = "production" #Anything != production will show DEBUG messages
+app_mode = "production" #Anything != production will show DEBUG messages
 
 [App]
 IP = "127.0.0.1"
@@ -7,9 +7,11 @@ Logfile = true
 Logdir = "/var/log/"
 
 [Database]
-IP = "127.0.0.1"
+# Type can be either postgresql or mysql
+Type = "mysql"
+# if type if postgres, you can also connect to the DB with a socket file
+Host = "127.0.0.1" # can be either an IP address or a socket, it's often /var/run/postgresql/
 Username = "sacrebleu"
 Password = "superSecretPassword"
 Port = "3306"
-Db = "sacrebleudatabase"
-Type = "mysql" #postgresql or mysql
+DB = "sacrebleudatabase"
