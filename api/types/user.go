@@ -8,12 +8,12 @@ import (
 
 //User : Struct for a user (to access to the API)
 type User struct {
-	ID       int `gorm:"primaryKey"`
-	Email    string
-	Username string
-	Password string
-	Token    string
-	IsAdmin  bool
+	ID       int      `gorm:"primaryKey"`
+	Email    string   `gorm:"not null;"`
+	Username string   `gorm:"not null;"`
+	Password string   `gorm:"not null;"`
+	Token    string   `gorm:"not null;"`
+	IsAdmin  bool     `gorm:"not null;"`
 	Domains  []Domain `gorm:"-"` //Dont save this in the DB.
 }
 
@@ -60,7 +60,6 @@ func (u *User) EmailExists(db *gorm.DB) bool {
 
 //UsernameExists : check if user with the same USERNAME already exists
 func (u *User) UsernameExists(db *gorm.DB) bool {
-
 	result := db.Where("username = ?", u.Username).First(&u)
 	return !errors.Is(result.Error, gorm.ErrRecordNotFound)
 }

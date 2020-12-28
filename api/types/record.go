@@ -9,13 +9,13 @@ import (
 //Record : Struct for a domain record
 //Defined by it's ID, DomainID (parent domain), Fqdn (or name), Content (value of the record), Type (as Qtype/int), TTL
 type Record struct {
-	ID       int    `gorm:"primaryKey"`
-	DomainID int    `example:"1"`
-	Fqdn     string `example:"sub.example.org."`
-	Content  string `example:"192.0.2.3"`
-	Type     int    `example:"1"`
+	ID       int    `gorm:"primaryKey;not null"`
+	DomainID int    `example:"1" gorm:"not null;"`
+	Fqdn     string `example:"sub.example.org." gorm:"not null;"`
+	Content  string `example:"192.0.2.3" gorm:"not null;"`
+	Type     int    `example:"1" gorm:"not null;"`
 	Qtype    uint16 `gorm:"-"` //Not saved in the database
-	TTL      int    `example:"3600"`
+	TTL      int    `example:"3600" gorm:"not null;"`
 }
 
 //GetRecord : get record from gorm database (by id)

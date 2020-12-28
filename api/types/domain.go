@@ -13,10 +13,10 @@ import (
 //Domain : Struct for a domain
 type Domain struct {
 	ID          int    `gorm:"primaryKey" example:"1"`
-	OwnerID     int    `example:"2"`
-	Fqdn        string `example:"example.org."`
-	Description string `example:"My example website"`
-	Serial      int    `example:"1"`
+	OwnerID     int    `example:"2" gorm:"not null;"`
+	Fqdn        string `example:"example.org." gorm:"not null;"`
+	Description string `example:"My example website" gorm:"not null;"`
+	Serial      int    `example:"1" gorm:"not null;"`
 }
 
 //GetDomain : get all domain infos from gorm database (by id)
