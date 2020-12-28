@@ -165,6 +165,10 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 	submitedUser.Password, _ = HashPassword(submitedUser.Password)
 
 	err = submitedUser.UpdateUser(a.DB)
+	if err == gorm.ErrRegistered {
+		respondWithError(w, http.StatusConflict, "User with the same email or username already exists.")
+		return
+	}
 	if checkSrvErr(err, w) {
 		return
 	}

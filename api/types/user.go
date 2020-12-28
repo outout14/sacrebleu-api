@@ -42,6 +42,9 @@ func (u *User) CreateUser(db *gorm.DB) error {
 
 //UpdateUser : update user from gorm database (by id)
 func (u *User) UpdateUser(db *gorm.DB) error {
+	if u.EmailExists(db) || u.UsernameExists(db) {
+		return gorm.ErrRegistered
+	}
 	result := db.Save(&u)
 	return result.Error
 }
@@ -60,6 +63,7 @@ func (u *User) EmailExists(db *gorm.DB) bool {
 
 //UsernameExists : check if user with the same USERNAME already exists
 func (u *User) UsernameExists(db *gorm.DB) bool {
+
 	result := db.Where("username = ?", u.Username).First(&u)
 	return !errors.Is(result.Error, gorm.ErrRecordNotFound)
 }
