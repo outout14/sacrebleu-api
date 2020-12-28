@@ -29,8 +29,7 @@ import (
 	"github.com/outout14/sacrebleu-dns/utils"
 	"github.com/sirupsen/logrus"
 
-	"github.com/outout14/sacrebleu-api/docs"            //Swagger
-	testUtils "github.com/outout14/sacrebleu-api/utils" //Will be removed quickly. Just a fix for the SQLDatabase function from sacrebleu-dns.
+	"github.com/outout14/sacrebleu-api/docs" //Swagger
 
 	"gopkg.in/ini.v1"
 )
@@ -55,7 +54,7 @@ func main() {
 	//Set up the Logrus logger
 	utils.InitLogger(conf)
 
-	db := testUtils.SQLDatabase(conf)
+	db := utils.SQLDatabase(conf)
 	if *sqlMigration {
 		types.SQLMigrate(db)
 	}

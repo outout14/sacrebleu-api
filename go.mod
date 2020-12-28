@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/gorilla/context v1.1.1
 	github.com/gorilla/mux v1.8.0
-	github.com/outout14/sacrebleu-dns v0.0.4
+	github.com/outout14/sacrebleu-dns v0.0.5
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/swaggo/http-swagger v1.0.0
