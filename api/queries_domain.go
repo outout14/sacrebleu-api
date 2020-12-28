@@ -198,6 +198,10 @@ func (a *Server) updateDomain(w http.ResponseWriter, r *http.Request) {
 	d := types.Domain{ID: id}
 	err := d.GetDomain(a.DB)
 
+	if err == gorm.ErrRecordNotFound {
+		respondWithError(w, http.StatusNotFound, "Domain not found.")
+		return
+	}
 	if domainVerify(err, w, user, d) {
 		return
 	}

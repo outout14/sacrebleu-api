@@ -148,6 +148,10 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, http.StatusForbidden, "No access to this user (no permission).")
 		return
 	}
+	if err == gorm.ErrRecordNotFound {
+		respondWithError(w, http.StatusNotFound, "User not found.")
+		return
+	}
 
 	//Parse the submited user
 	submitedUser := u
@@ -166,7 +170,6 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if submitedUser.Email != u.Email {
-		logrus.Debug("Exist")
 		if submitedUser.EmailExists(a.DB) {
 			logrus.Debug("OK")
 			respondWithError(w, http.StatusConflict, "User with the same email already exists.")
