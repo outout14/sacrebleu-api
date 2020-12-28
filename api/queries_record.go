@@ -128,7 +128,7 @@ func (a *Server) updateRecord(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Parse the submited domain
-	var submitedRecord types.Record
+	submitedRecord := record
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&submitedRecord); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid resquest payload.")

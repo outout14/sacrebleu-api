@@ -203,7 +203,7 @@ func (a *Server) updateDomain(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Parse the submited domain
-	var submitedDomain types.Domain
+	submitedDomain := d
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&submitedDomain); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid resquest payload.")

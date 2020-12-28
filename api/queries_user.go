@@ -6,6 +6,7 @@ import (
 
 	"github.com/gorilla/context"
 	"github.com/outout14/sacrebleu-api/api/types"
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
@@ -149,7 +150,7 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Parse the submited user
-	var submitedUser types.User
+	submitedUser := u
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&submitedUser); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid resquest payload.")
@@ -159,10 +160,18 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 
 	//Check if modified username or email already exist
 	if submitedUser.Username != u.Username {
-		submitedUser.UsernameExists(a.DB)
+		if submitedUser.UsernameExists(a.DB) {
+			respondWithError(w, http.StatusConflict, "User with the same username already exists.")
+			return
+		}
 	}
 	if submitedUser.Email != u.Email {
-		submitedUser.EmailExists(a.DB)
+		logrus.Debug("Exist")
+		if submitedUser.EmailExists(a.DB) {
+			logrus.Debug("OK")
+			respondWithError(w, http.StatusConflict, "User with the same email already exists.")
+			return
+		}
 	}
 
 	//The user ID & token should still be the same
