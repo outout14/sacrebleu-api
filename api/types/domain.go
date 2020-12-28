@@ -125,8 +125,8 @@ func (d *Domain) Exists(db *gorm.DB) bool {
 func (d *Domain) UpdateSOA(db *gorm.DB, user User) {
 
 	//Email to SOA email recommandations
-	strings.ReplaceAll(user.Email, ".", "\\.")
-	strings.ReplaceAll(user.Email, "@", ".")
+	user.Email = strings.ReplaceAll(user.Email, ".", "\\.")
+	user.Email = strings.ReplaceAll(user.Email, "@", ".")
 
 	//Serial incrementation
 	d.Serial = d.Serial + 1
