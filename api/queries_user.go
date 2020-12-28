@@ -188,7 +188,7 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 // @ID user
 // @Produce  json
 // @Param   user_id      path   int     true  "1"
-// @Success 200 {object} types.User
+// @Success 204
 // @Failure 400,403,404 {object} Response
 // @Tags Users
 // @Router /user/{user_id} [delete]
@@ -217,5 +217,5 @@ func (a *Server) deleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, u)
+	respondWithCode(w, http.StatusNoContent)
 }
