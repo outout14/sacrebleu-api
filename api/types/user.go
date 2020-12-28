@@ -42,9 +42,6 @@ func (u *User) CreateUser(db *gorm.DB) error {
 
 //UpdateUser : update user from gorm database (by id)
 func (u *User) UpdateUser(db *gorm.DB) error {
-	if u.EmailExists(db) || u.UsernameExists(db) {
-		return gorm.ErrRegistered
-	}
 	result := db.Save(&u)
 	return result.Error
 }

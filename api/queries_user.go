@@ -157,18 +157,23 @@ func (a *Server) updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	//The user ID should still be the same
+	//Check if modified username or email already exist
+	if submitedUser.Username != u.Username {
+		submitedUser.UsernameExists(a.DB)
+	}
+	if submitedUser.Email != u.Email {
+		submitedUser.EmailExists(a.DB)
+	}
+
+	//The user ID & token should still be the same
 	submitedUser.ID = u.ID
+	submitedUser.Token = u.Token
 	if !user.IsAdmin {
 		submitedUser.IsAdmin = false
 	}
 	submitedUser.Password, _ = HashPassword(submitedUser.Password)
 
 	err = submitedUser.UpdateUser(a.DB)
-	if err == gorm.ErrRegistered {
-		respondWithError(w, http.StatusConflict, "User with the same email or username already exists.")
-		return
-	}
 	if checkSrvErr(err, w) {
 		return
 	}
