@@ -38,8 +38,8 @@ var conf *utils.Conf
 
 func main() {
 	//Get the config patch from --config flag
-	configPatch := flag.String("config", "extra/config.ini.example", "the patch to the config file") //Get the config patch from --config flag
-	sqlMigration := flag.Bool("sqlmigrate", false, "initialize / migrate the database")              //Detect if migration asked
+	configPatch := flag.String("config", "config.ini", "the patch to the config file")  //Get the config patch from --config flag
+	sqlMigration := flag.Bool("sqlmigrate", false, "initialize / migrate the database") //Detect if migration asked
 	adminCreate := flag.Bool("createadmin", false, "create admin user in the database")
 	flag.Parse()
 
