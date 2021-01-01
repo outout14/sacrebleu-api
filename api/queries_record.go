@@ -177,6 +177,11 @@ func (a *Server) deleteRecord(w http.ResponseWriter, r *http.Request) {
 	//Get actual record
 	record := types.Record{ID: id}
 	err := record.GetRecord(a.DB)
+	if err == gorm.ErrRecordNotFound {
+		respondWithError(w, http.StatusNotFound, "Record not found.")
+		return
+	}
+
 	//Check parent domain permissions
 	d := types.Domain{ID: record.DomainID}
 	err = d.GetDomain(a.DB)

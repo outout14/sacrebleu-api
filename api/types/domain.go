@@ -71,11 +71,10 @@ func (d *Domain) GetDomainRecords(db *gorm.DB, count int, start int) ([]Record, 
 	var err error
 
 	rows, err = db.Limit(count).Offset(start).Where("domain_id = ?", searchInterface.DomainID).Model(&Record{}).Rows()
-	defer rows.Close()
-
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var r Record
