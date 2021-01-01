@@ -138,7 +138,7 @@ func (d *Domain) UpdateSOA(db *gorm.DB, user User) {
 
 	t := time.Now()
 	serial := t.Format("20060102") //RFC 1912 2.2.
-	soa := fmt.Sprintf("master.%s %s (%v%v 3600, 1800, 604800, 600)", d.Fqdn, user.Email, serial, d.Serial)
+	soa := fmt.Sprintf("master.%s %s %v%v 3600 1800 604800 600", d.Fqdn, user.Email, serial, d.Serial)
 	record := Record{DomainID: d.ID, Fqdn: d.Fqdn, Type: 6, TTL: 3600, Content: soa}
 
 	//Write new record
