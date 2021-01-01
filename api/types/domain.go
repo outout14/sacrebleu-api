@@ -25,6 +25,12 @@ func (d *Domain) GetDomain(db *gorm.DB) error {
 	return result.Error
 }
 
+//GetDomainByFqdn : get all domain infos from gorm database (by fqdn)
+func (d *Domain) GetDomainByFqdn(db *gorm.DB) error {
+	result := db.Where("fqdn = ?", d.Fqdn).First(&d)
+	return result.Error
+}
+
 //GetOwner : get domain Owner_ID from gorm database (by id)
 func (d *Domain) GetOwner(db *gorm.DB) error {
 	result := db.Select("owner_id").First(&d, d.ID)
