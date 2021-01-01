@@ -147,3 +147,11 @@ func (d *Domain) UpdateSOA(db *gorm.DB, user User) {
 	//Write new serial
 	d.UpdateDomain(db)
 }
+
+//GetSOA : get domain SOA from gorm database
+//The domain object need a FQDN
+func (d *Domain) GetSOA(db *gorm.DB) (Record, error) {
+	var r Record
+	result := db.Where("fqdn = ? AND type = 6", d.Fqdn).First(&r)
+	return r, result.Error
+}
