@@ -26,7 +26,7 @@ func (a *Server) Initialize(conf *utils.Conf) {
 func (a *Server) initializeRoutes() {
 	//Swagger doc
 	logrus.Debug("[SERVER] Documentation Init")
-	a.Router.PathPrefix("/").Handler(httpSwagger.Handler(
+	a.Router.PathPrefix("/doc/").Handler(httpSwagger.Handler(
 		httpSwagger.URL("./swagger/doc.json"), //The url pointing to API definition
 		httpSwagger.DeepLinking(true),
 	))

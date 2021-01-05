@@ -4,7 +4,7 @@ The API server which interacts with the [sacrebleu-dns DNS server](https://githu
 
 This software interacts directly with the SQL database and does not need to be on a server with ``sacrebleu-dns``.
 
-The API documentation is accessible on ``[your_server]:[port]/``.
+The API documentation is accessible on ``[your_server]:[port]/doc/``.
 
 ## Arguments 
 You can show theses informations using ``./sacrebleu-api -h``.
