@@ -63,7 +63,9 @@ func (a *Server) getPing(w http.ResponseWriter, r *http.Request) {
 
 //Run : Start the HTTP Server
 func (a *Server) Run(conf *utils.Conf) {
-	logrus.WithFields(logrus.Fields{"ip": conf.App.IP, "port": conf.App.Port}).Infof("SERVER : Started")
-	addr := fmt.Sprintf("%s:%v", conf.App.IP, conf.App.Port)
+	a.Conf = conf
+	logrus.WithFields(logrus.Fields{"ip": conf.App.IP, "port": a.Conf.App.Port}).Infof("SERVER : Started")
+	logrus.WithFields(logrus.Fields{"Nameservers": a.Conf.DNS.Nameservers}).Infof("")
+	addr := fmt.Sprintf("%s:%v", a.Conf.App.IP, a.Conf.App.Port)
 	logrus.Fatal(http.ListenAndServe(addr, a.Router))
 }

@@ -20,7 +20,7 @@ type Server struct {
 	Router    *mux.Router
 	APIRouter *mux.Router
 	DB        *gorm.DB
-	Conf      utils.Conf
+	Conf      *utils.Conf
 }
 
 //Response : Used to reply to http query

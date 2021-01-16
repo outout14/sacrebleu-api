@@ -15,3 +15,6 @@ Username = "sacrebleu"
 Password = "superSecretPassword"
 Port = "3306"
 DB = "sacrebleudatabase"
+
+[DNS]
+Nameservers = ns1.example.org., ns2.example.org., ns1.example.com. # Array of NS fqdn. (the first one is the master) 

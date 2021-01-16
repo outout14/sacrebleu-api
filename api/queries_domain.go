@@ -172,6 +172,20 @@ func (a *Server) createDomain(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Create NS records
+	nameservers := a.Conf.DNS.Nameservers
+
+	for _, nsName := range nameservers {
+		nsRecord := types.Record{
+			DomainID: submitedDomain.ID,
+			Fqdn:     submitedDomain.Fqdn,
+			Content:  nsName,
+			Type:     2,
+			TTL:      9600,
+		}
+		nsRecord.CreateRecord(a.DB)
+	}
+
 	respondWithJSON(w, http.StatusOK, submitedDomain)
 }
 

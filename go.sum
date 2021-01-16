@@ -197,10 +197,13 @@ github.com/onsi/gomega v1.10.1/go.mod h1:iN09h71vgCQne3DLsj+A5owkum+a2tYe+TOCB1y
 github.com/onsi/gomega v1.10.3 h1:gph6h/qe9GSUw1NhH1gp+qb+h8rXD8Cy60Z32Qw3ELA=
 github.com/onsi/gomega v1.10.3/go.mod h1:V9xEwhxec5O8UDM77eCW8vLymOMltsqPVYWrpDsH8xc=
 github.com/outout14/sacrebleu-api v0.0.0-20201227222118-369cb34174ae/go.mod h1:Wgrhbj7+cZiHa5aufAIyNT3zkwukwtrMPqL/qtZovt4=
+github.com/outout14/sacrebleu-api v0.0.0-20210101200542-c74760a559c4/go.mod h1:NGAUHRsf0oGAp7nEMU/aXJiehT4fy/AVzG/J9o+gOO4=
 github.com/outout14/sacrebleu-dns v0.0.4 h1:wMMov1Ph5Ks9BOA7tD3JRhKdjb1PYs8WPbygYmN3qmQ=
 github.com/outout14/sacrebleu-dns v0.0.4/go.mod h1:0A01AFvUj1K217FJhpvOUV/uRLizwCB5a0vPaB9uVHw=
 github.com/outout14/sacrebleu-dns v0.0.5 h1:eHAAHvVvkjzWI+9fYVlrDmOR1/4GY2fCBTSlUs1IRpA=
 github.com/outout14/sacrebleu-dns v0.0.5/go.mod h1:3wlET68I/Wk+XyUa0gAe6CLFBnBsd5r58YYdXeS+ywI=
+github.com/outout14/sacrebleu-dns v0.0.6-0.20210116191727-cf1f7e2ee4b4 h1:2+X4P2pm04PpmhzS+s1TwEXkZLg6aNsL6CrbQmuGsCU=
+github.com/outout14/sacrebleu-dns v0.0.6-0.20210116191727-cf1f7e2ee4b4/go.mod h1:1kYLspTxv3F09UZAE3eJ7TMT9VM4fSQnaPq/WnS6D+M=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
