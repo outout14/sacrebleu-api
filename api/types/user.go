@@ -31,6 +31,12 @@ func (u *User) GetUser(db *gorm.DB) error {
 	return result.Error
 }
 
+//GetUserByUsername : get user from gorm database (by username)
+func (u *User) GetUserByUsername(db *gorm.DB) error {
+	result := db.Where("username = ?", u.Username).First(&u)
+	return result.Error
+}
+
 //CreateUser : create user in gorm database
 func (u *User) CreateUser(db *gorm.DB) error {
 	if u.EmailExists(db) || u.UsernameExists(db) {

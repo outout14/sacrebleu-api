@@ -48,6 +48,7 @@ func (a *Server) initializeRoutes() {
 	a.APIRouter.HandleFunc("/record/{id:[0-9]+}", a.deleteRecord).Methods("DELETE")
 
 	//Users
+	a.Router.HandleFunc("/api/login", a.login).Methods("POST") //Router object is used and not APIRouter to don't require Token auth
 	a.APIRouter.HandleFunc("/user", a.createUser).Methods("POST")
 	a.APIRouter.HandleFunc("/user/{id:[0-9]+}", a.getUser).Methods("GET")
 	a.APIRouter.HandleFunc("/user/self", a.getUserSelf).Methods("GET")

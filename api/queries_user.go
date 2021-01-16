@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/context"
 	"github.com/outout14/sacrebleu-api/api/types"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -21,6 +22,38 @@ func havePermissions(user types.User, reqUser types.User) bool {
 	}
 
 	return false
+}
+
+// login endpoint.
+// @Summary Login
+// @Description User send his credentials via POST and get his token
+// @ID login
+// @Produce json
+// @Success 200 {object} types.User
+// @Failure 400,403,404 {object} Response
+// @Tags Users
+// @Router /login [post]
+func (a *Server) login(w http.ResponseWriter, r *http.Request) {
+	submitedUser := types.User{}
+	submitedUser.Username = r.FormValue("username")
+	submitedUser.Password = r.FormValue("password")
+
+	resultUser := submitedUser
+
+	err := resultUser.GetUserByUsername(a.DB)
+
+	if err == gorm.ErrRecordNotFound {
+		respondWithError(w, http.StatusForbidden, "Credentials don't match.")
+		return
+	}
+
+	//Check for the password
+	err = bcrypt.CompareHashAndPassword([]byte(resultUser.Password), []byte(submitedUser.Password))
+	if err != nil {
+		respondWithError(w, http.StatusForbidden, "Credentials don't match.")
+	} else {
+		respondWithJSON(w, http.StatusOK, resultUser)
+	}
 }
 
 // getUser endpoint.
