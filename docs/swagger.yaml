@@ -305,6 +305,32 @@ paths:
       summary: Get all domains accessibles by the user
       tags:
       - Domains
+  /login:
+    post:
+      description: User send his credentials via POST and get his token
+      operationId: login
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "403":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+        "404":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Response'
+      summary: Login
+      tags:
+      - Users
   /record:
     post:
       consumes:
