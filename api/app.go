@@ -10,7 +10,9 @@ import (
 	"github.com/outout14/sacrebleu-dns/utils"
 	"github.com/sirupsen/logrus"
 
-	"github.com/swaggo/http-swagger"
+	"github.com/rs/cors"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 //Initialize : Initialize the mux router and the routes
@@ -67,5 +69,15 @@ func (a *Server) Run(conf *utils.Conf) {
 	logrus.WithFields(logrus.Fields{"ip": conf.App.IP, "port": a.Conf.App.Port}).Infof("SERVER : Started")
 	logrus.WithFields(logrus.Fields{"Nameservers": a.Conf.DNS.Nameservers}).Infof("")
 	addr := fmt.Sprintf("%s:%v", a.Conf.App.IP, a.Conf.App.Port)
-	logrus.Fatal(http.ListenAndServe(addr, a.Router))
+
+	handler := cors.Default().Handler(a.Router)
+	c := cors.New(cors.Options{
+		AllowedOrigins:   a.Conf.AllowedOrigins,
+		AllowCredentials: true,
+		AllowedHeaders:   []string{"X-Access-Token"},
+	})
+
+	// Insert the middleware
+	handler = c.Handler(handler)
+	logrus.Fatal(http.ListenAndServe(addr, handler))
 }

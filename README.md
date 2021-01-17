@@ -27,6 +27,7 @@ Variables names are case sensitives.
 |Port|int|``5001``|Port on which the HTTP server must listen
 |Logfile|bool|``true``|Enable or disable file logs.
 |Logdir|string|``/var/log``|Log file directory.
+|AllowedOrigins|array|``http://localhost:8000, https://dash.example.com``|List of websites that can access the API (CORS header)
 |Database|Section|
 |Type|string|``"postgresql"``|SQL Database type. ``"postgresql"`` or ``"mysql"`` (anything different than ``"postgresql"`` will rollback to ``"mysql"``)
 |Host|string|``"127.0.0.1"``  ``"/var/run/postgres"``|Can be either an IP or a path to a socket for Postgres

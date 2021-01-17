@@ -5,6 +5,7 @@ IP = "127.0.0.1"
 Port = 5001
 Logfile = true
 Logdir = "/var/log/"
+AllowedOrigins = http://localhost:8000, https://dash.example.com # Allowed-Origin for CORS header 
 
 [Database]
 # Type can be either postgresql or mysql

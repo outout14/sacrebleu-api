@@ -202,8 +202,8 @@ github.com/outout14/sacrebleu-dns v0.0.4 h1:wMMov1Ph5Ks9BOA7tD3JRhKdjb1PYs8WPbyg
 github.com/outout14/sacrebleu-dns v0.0.4/go.mod h1:0A01AFvUj1K217FJhpvOUV/uRLizwCB5a0vPaB9uVHw=
 github.com/outout14/sacrebleu-dns v0.0.5 h1:eHAAHvVvkjzWI+9fYVlrDmOR1/4GY2fCBTSlUs1IRpA=
 github.com/outout14/sacrebleu-dns v0.0.5/go.mod h1:3wlET68I/Wk+XyUa0gAe6CLFBnBsd5r58YYdXeS+ywI=
-github.com/outout14/sacrebleu-dns v0.0.6-0.20210116191727-cf1f7e2ee4b4 h1:2+X4P2pm04PpmhzS+s1TwEXkZLg6aNsL6CrbQmuGsCU=
-github.com/outout14/sacrebleu-dns v0.0.6-0.20210116191727-cf1f7e2ee4b4/go.mod h1:1kYLspTxv3F09UZAE3eJ7TMT9VM4fSQnaPq/WnS6D+M=
+github.com/outout14/sacrebleu-dns v0.0.6-0.20210117221355-8e5bf6ebdbe2 h1:2XFL8XgMrsa2M48azMUkgbmmcUUJmwBOe6H9bT518C8=
+github.com/outout14/sacrebleu-dns v0.0.6-0.20210117221355-8e5bf6ebdbe2/go.mod h1:1kYLspTxv3F09UZAE3eJ7TMT9VM4fSQnaPq/WnS6D+M=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
@@ -212,6 +212,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
+github.com/rs/cors v1.7.0 h1:+88SsELBHx5r+hZ8TCkggzSstaWNbDvThkVK8H6f9ik=
+github.com/rs/cors v1.7.0/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 github.com/rs/xid v1.2.1/go.mod h1:+uKXf+4Djp6Md1KODXJxgGQPKngRmWyn10oCKFzNHOQ=
 github.com/rs/zerolog v1.13.0/go.mod h1:YbFCdg8HfsridGWAh22vktObvhZbQsZXe4/zB0OKkWU=
 github.com/rs/zerolog v1.15.0/go.mod h1:xYTKnLHcpfU2225ny5qZjxnj9NvkumZYjJHlAThCjNc=
